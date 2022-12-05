@@ -24,13 +24,18 @@ function App() {
  
  
  ])
- function deleteTask(jd){
-  console.log('delete'. id)
+ function deleteTask(id){
+  console.log('delete', id)
+ }
+
+ //set Reminder
+ function addReminder(id){
+  console.log(id)
  }
   return (
     <div className="container">
       <Header />
-      <Task tasks={tasks} onDelete={deleteTask}/>
+      <Task tasks={tasks} onDelete={deleteTask} addReminder={addReminder}/>
     </div>
   );
 }

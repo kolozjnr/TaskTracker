@@ -1,8 +1,8 @@
-
-const TaskItem = ({ task, onDelete }) => {
+import { FaTimes } from "react-icons/fa"
+const TaskItem = ({ task, onDelete, addReminder }) => {
   return (
-    <div className="event">
-      <h3>{task.text} </h3>
+    <div className="event" onDoubleClick={() => addReminder(task.id)}>
+      <h3>{task.text} <FaTimes onClick={ () => onDelete(task.id)} /> </h3>
       <p>{task.day}</p>
     </div>
   )
