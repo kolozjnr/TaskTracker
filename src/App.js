@@ -2,8 +2,9 @@ import { useState } from 'react';
 import './App.css';
 import Header from './components/Header';
 import Task from './components/Task';
+import AddTask from './components/AddTask';
 function App() {
-  const [tasks, setTask] = useState ([
+  const [tasks, setTasks] = useState ([
     {
      id: 1,
      text: 'Doctors Apointment',
@@ -25,17 +26,22 @@ function App() {
  
  ])
  function deleteTask(id){
-  console.log('delete', id)
+  setTasks(tasks.filter((task) => task.id !== id))
+ }
+
+ function addTask(task){
+  console.log(task)
  }
 
  //set Reminder
  function addReminder(id){
-  console.log(id)
+  setTasks(tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task))
  }
   return (
     <div className="container">
       <Header />
-      <Task tasks={tasks} onDelete={deleteTask} addReminder={addReminder}/>
+      <AddTask addTask={addTask} />
+      {tasks.length > 0 ? (<Task tasks={tasks} onDelete={deleteTask} addReminder={addReminder}/>) :  ('No Task at the Moment') }
     </div>
   );
 }
