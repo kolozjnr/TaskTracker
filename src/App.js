@@ -4,25 +4,9 @@ import Header from './components/Header';
 import Task from './components/Task';
 import AddTask from './components/AddTask';
 function App() {
+  const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTasks] = useState ([
-    {
-     id: 1,
-     text: 'Doctors Apointment',
-     day: 'Feb 5th at 2pm',
-     reminder: true,
-    },{
-     id: 2,
-     text: 'Code with Traversy',
-     day: 'Aug 10th at 2pm',
-     reminder: true,
-    },
-    {
-     id: 3,
-     text: 'Learn React',
-     day: 'Dec 1st at 9pm',
-     reminder: false,
-    },
- 
+   
  
  ])
  function deleteTask(id){
@@ -30,17 +14,23 @@ function App() {
  }
 
  function addTask(task){
-  console.log(task)
+  const id = Math.floor(Math.random() * 1000) + 1
+  const newTask = {id, ...task}
+  setTasks([...tasks, newTask]) 
  }
 
  //set Reminder
  function addReminder(id){
   setTasks(tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task))
  }
+ //Toggle form
+ function toggleForm(){
+  setShowAddTask(!showAddTask)
+ }
   return (
     <div className="container">
-      <Header />
-      <AddTask addTask={addTask} />
+      <Header toggleForm={toggleForm} showAdd={showAddTask} />
+      {showAddTask && <AddTask addTask={addTask}/>}
       {tasks.length > 0 ? (<Task tasks={tasks} onDelete={deleteTask} addReminder={addReminder}/>) :  ('No Task at the Moment') }
     </div>
   );
